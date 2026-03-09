@@ -13,5 +13,9 @@ format:
 test:
 	python3 -m pytest -q
 
+upload:
+	python3 -m build
+	python3 -m twine upload dist/*
+
 clean:
 	rm -rf .pytest_cache __pycache__ build dist *.egg-info */__pycache__
