@@ -11,7 +11,7 @@ format:
 	pipx run --spec black==24.1.0 black .
 
 test:
-	python3 -m pytest -q
+	pipx run --spec pytest==9.0.2 pytest
 
 upload:
 	python3 -m build
