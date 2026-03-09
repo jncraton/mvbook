@@ -18,4 +18,4 @@ upload:
 	python3 -m twine upload dist/*
 
 clean:
-	rm -rf .pytest_cache __pycache__ build dist *.egg-info */__pycache__
+	rm -rf .pytest_cache __pycache__ build dist *.egg-info */__pycache__ uv.lock
