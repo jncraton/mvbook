@@ -5,7 +5,7 @@ uv:
 all: test
 
 lint:
-	uv run --with pylint==2.17.5 pylint .
+	uv run --with black==24.1.0 black --check .
 
 format:
 	uv run --with black==24.1.0 black .
