@@ -10,24 +10,25 @@ from pathlib import Path
 import argparse
 import sys
 
-API_SEARCH = 'https://openlibrary.org/search.json'
+API_SEARCH = "https://openlibrary.org/search.json"
+
 
 def format_filename(metadata, orig_path: Path):
     """Format: Author.Title.Year.ISBN.ext
 
     Assumes metadata has keys: author_name (list), title, first_publish_year, isbn (list)
     """
-    author = metadata.get('author_name', ['Unknown'])[0].replace(' ', '.')
-    title = metadata.get('title', 'Unknown').replace(' ', '.')
-    year = str(metadata.get('first_publish_year', ''))
-    isbn = metadata.get('isbn', [''])[0]
-    ext = orig_path.suffix.lstrip('.')
+    author = metadata.get("author_name", ["Unknown"])[0].replace(" ", ".")
+    title = metadata.get("title", "Unknown").replace(" ", ".")
+    year = str(metadata.get("first_publish_year", ""))
+    isbn = metadata.get("isbn", [""])[0]
+    ext = orig_path.suffix.lstrip(".")
     parts = [author, title]
     if year:
         parts.append(year)
     if isbn:
         parts.append(isbn)
-    return '.'.join(parts) + f'.{ext}'
+    return ".".join(parts) + f".{ext}"
 
 
 def lookup_by_title(title):
@@ -36,19 +37,19 @@ def lookup_by_title(title):
     except Exception:
         # requests may not be available in all test environments; raise a clear error
         raise
-    r = requests.get(API_SEARCH, params={'q': title}, timeout=10)
+    r = requests.get(API_SEARCH, params={"q": title}, timeout=10)
     r.raise_for_status()
     data = r.json()
-    docs = data.get('docs', [])
+    docs = data.get("docs", [])
     if not docs:
         return None
     return docs[0]
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(prog='mvbook')
-    parser.add_argument('files', nargs='+')
-    parser.add_argument('--dry-run', action='store_true')
+    parser = argparse.ArgumentParser(prog="mvbook")
+    parser.add_argument("files", nargs="+")
+    parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args(argv)
 
     for f in args.files:
@@ -56,14 +57,15 @@ def main(argv=None):
         title_guess = p.stem
         meta = lookup_by_title(title_guess)
         if not meta:
-            print(f'No metadata found for {f}', file=sys.stderr)
+            print(f"No metadata found for {f}", file=sys.stderr)
             continue
         newname = format_filename(meta, p)
         if args.dry_run:
-            print(f'{f} -> {newname}')
+            print(f"{f} -> {newname}")
         else:
             p.rename(p.with_name(newname))
-            print(f'Renamed {f} -> {newname}')
+            print(f"Renamed {f} -> {newname}")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
