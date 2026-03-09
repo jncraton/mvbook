@@ -5,10 +5,10 @@ uv:
 all: test
 
 lint:
-	uv run --with black==24.1.0 black --check .
+	pipx run --spec black==24.1.0 black --check .
 
 format:
-	uv run --with black==24.1.0 black .
+	pipx run --spec black==24.1.0 black .
 
 test:
 	python3 -m pytest -q
