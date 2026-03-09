@@ -9,6 +9,8 @@ Example:
 from pathlib import Path
 import argparse
 import sys
+import json
+from urllib import parse, request, error
 
 API_SEARCH = "https://openlibrary.org/search.json"
 
@@ -32,14 +34,15 @@ def format_filename(metadata, orig_path: Path):
 
 
 def lookup_by_title(title):
+    query = parse.urlencode({"q": title})
+    url = f"{API_SEARCH}?{query}"
     try:
-        import requests
+        with request.urlopen(url, timeout=10) as resp:
+            if resp.status != 200:
+                raise error.HTTPError(url, resp.status, resp.reason, resp.headers, None)
+            data = json.load(resp)
     except Exception:
-        # requests may not be available in all test environments; raise a clear error
         raise
-    r = requests.get(API_SEARCH, params={"q": title}, timeout=10)
-    r.raise_for_status()
-    data = r.json()
     docs = data.get("docs", [])
     if not docs:
         return None
