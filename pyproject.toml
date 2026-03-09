@@ -1,2 +1,27 @@
-[tool.black]
-line-length = 88
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mvbook"
+version = "0.0.1"
+description = "A small CLI to rename ebook files using Open Library metadata."
+readme = "readme.md"
+authors = [
+    { name = "Jon Craton", email = "jncraton@gmail.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "requests>=2.28.0",
+]
+
+[project.scripts]
+mvbook = "mvbook.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["mvbook"]
