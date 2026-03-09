@@ -1,3 +1,7 @@
+uv:
+	pip install -r requirements.txt
+	python -m build
+
 all: test
 
 lint:

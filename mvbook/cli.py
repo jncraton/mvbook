@@ -8,7 +8,6 @@ Example:
 
 from pathlib import Path
 import argparse
-import requests
 import sys
 
 API_SEARCH = 'https://openlibrary.org/search.json'
@@ -32,6 +31,11 @@ def format_filename(metadata, orig_path: Path):
 
 
 def lookup_by_title(title):
+    try:
+        import requests
+    except Exception:
+        # requests may not be available in all test environments; raise a clear error
+        raise
     r = requests.get(API_SEARCH, params={'q': title}, timeout=10)
     r.raise_for_status()
     data = r.json()
