@@ -11,7 +11,7 @@ format:
 	uvx black@24.1.0 .
 
 test:
-	uvx pytest@9.0.2
+	PYTHONPATH=. uvx --with pytest==9.0.2 pytest
 
 upload:
 	python3 -m build
