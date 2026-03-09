@@ -5,13 +5,13 @@ uv:
 all: test
 
 lint:
-	pipx run --spec black==24.1.0 black --check .
+	uvx black@24.1.0 --check .
 
 format:
-	pipx run --spec black==24.1.0 black .
+	uvx black@24.1.0 .
 
 test:
-	pipx run --spec pytest==9.0.2 pytest
+	uvx pytest@9.0.2
 
 upload:
 	python3 -m build
