@@ -11,6 +11,7 @@ import argparse
 import sys
 import json
 import re
+import os
 from urllib import parse, request, error
 
 API_SEARCH = "https://openlibrary.org/search.json"
@@ -62,6 +63,11 @@ def lookup_by_title(title):
     docs = data.get("docs", [])
     if not docs:
         return None
+    # prefer a doc that contains ISBN information
+    for d in docs:
+        if d.get("isbn"):
+            return d
+    # fall back to first doc
     return docs[0]
 
 
