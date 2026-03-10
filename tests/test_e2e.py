@@ -9,6 +9,7 @@ import mvbook.cli as cli
         ("The Two Towers.epub", "Tolkien", "Two"),
         ("Pride and Prejudice.epub", "Austen", "Pride"),
         ("The Hobbit.epub", "Tolkien", "Hobbit"),
+        ("Kandinsky Point Line Plane 2012.epub", "Kandinsky", "Point"),
     ],
 )
 def test_end_to_end_real_network(

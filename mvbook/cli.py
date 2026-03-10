@@ -10,6 +10,7 @@ from pathlib import Path
 import argparse
 import sys
 import json
+import re
 from urllib import parse, request, error
 
 API_SEARCH = "https://openlibrary.org/search.json"
@@ -72,7 +73,8 @@ def main(argv=None):
 
     for f in args.files:
         p = Path(f)
-        title_guess = p.stem
+        title_guess = p.stem.replace('.', ' ')
+        title_guess = re.sub('[\d\-+]', ' ', title_guess)
         meta = lookup_by_title(title_guess)
         if not meta:
             print(f"No metadata found for {f}", file=sys.stderr)
