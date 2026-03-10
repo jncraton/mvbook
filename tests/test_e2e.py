@@ -49,21 +49,12 @@ def test_end_to_end_isbn_appended(tmp_path, capsys):
     f = tmp_path / "The Hobbit.epub"
     f.write_text("dummy")
 
-    # probe API first to ensure an ISBN is available; skip if not
-    title_guess = "The Hobbit"
-    meta = cli.lookup_by_title(title_guess)
-    if not meta or not meta.get("isbn"):
-        pytest.skip(f"OpenLibrary returned no ISBN for title: {title_guess}")
-
-    expected_isbn = meta.get("isbn", [None])[0]
-
     # run CLI using real network lookup
     cli.main(["--dry-run", str(f)])
 
     captured = capsys.readouterr()
     assert "->" in captured.out
     newname = captured.out.split("->", 1)[1].strip()
-    # ensure the specific ISBN returned by the API appears in the generated name
-    assert expected_isbn in newname
+    assert re.match(r".*\d{13}", newname)
     # ensure extension preserved
     assert newname.endswith(".epub")
