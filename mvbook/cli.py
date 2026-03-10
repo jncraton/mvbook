@@ -19,6 +19,19 @@ def format_filename(metadata, orig_path: Path):
     """Format: Author.Title.Year.ISBN.ext
 
     Assumes metadata has keys: author_name (list), title, first_publish_year, isbn (list)
+
+    Examples
+    --------
+    >>> from pathlib import Path
+    >>> meta = {
+    ...     "author_name": ["J R R Tolkien"],
+    ...     "title": "The Two Towers",
+    ...     "first_publish_year": 1999,
+    ...     "isbn": ["9780618002238"],
+    ... }
+    >>> p = Path("dummy.epub")
+    >>> format_filename(meta, p)
+    'Tolkien.The.Two.Towers.1999.9780618002238.epub'
     """
     author = metadata.get("author_name", ["Unknown"])[0].split(' ')[-1].replace(" ", ".")
     title = metadata.get("title", "Unknown").replace(" ", ".")

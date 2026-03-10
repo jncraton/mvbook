@@ -11,7 +11,8 @@ format:
 	uvx black@24.1.0 .
 
 test:
-	PYTHONPATH=. uvx --with pytest==9.0.2 pytest
+	PYTHONPATH=. uvx --with pytest==9.0.2 pytest --doctest-modules
+	python3 -m doctest -v mvbook/*.py
 
 upload:
 	python3 -m build
