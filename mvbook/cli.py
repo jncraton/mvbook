@@ -51,7 +51,10 @@ def format_filename(metadata, orig_path: Path):
 
 
 def lookup_by_title(title):
-    query = parse.urlencode({"q": title})
+    query = parse.urlencode({
+        "q": title,
+        "fields": "author_name,title,first_publish_year,isbn",
+    })
     url = f"{API_SEARCH}?{query}"
     try:
         with request.urlopen(url, timeout=10) as resp:
