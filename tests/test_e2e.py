@@ -66,4 +66,4 @@ def test_end_to_end_isbn_appended(tmp_path, capsys):
     # ensure the specific ISBN returned by the API appears in the generated name
     assert expected_isbn in newname
     # ensure extension preserved
-    assert newname.endswith('.epub')
+    assert newname.endswith(".epub")
