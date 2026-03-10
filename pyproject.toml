@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mvbook"
-version = "1.2.0"
+version = "1.2.1"
 description = "A small CLI to rename ebook files using Open Library metadata."
 readme = "readme.md"
 authors = [
