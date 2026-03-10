@@ -40,7 +40,7 @@ def format_filename(metadata, orig_path: Path):
     )
     title = metadata.get("title", "Unknown").replace(" ", ".")
     year = str(metadata.get("first_publish_year", ""))
-    isbn = metadata.get("isbn", [""])[0]
+    isbn = next((i for i in metadata.get("isbn", []) if len(i) == 13), "")
     ext = orig_path.suffix.lstrip(".")
     parts = [author, title]
     if year:
