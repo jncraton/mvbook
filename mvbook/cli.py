@@ -33,7 +33,9 @@ def format_filename(metadata, orig_path: Path):
     >>> format_filename(meta, p)
     'Tolkien.The.Two.Towers.1999.9780618002238.epub'
     """
-    author = metadata.get("author_name", ["Unknown"])[0].split(' ')[-1].replace(" ", ".")
+    author = (
+        metadata.get("author_name", ["Unknown"])[0].split(" ")[-1].replace(" ", ".")
+    )
     title = metadata.get("title", "Unknown").replace(" ", ".")
     year = str(metadata.get("first_publish_year", ""))
     isbn = metadata.get("isbn", [""])[0]
