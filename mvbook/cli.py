@@ -20,7 +20,7 @@ def format_filename(metadata, orig_path: Path):
 
     Assumes metadata has keys: author_name (list), title, first_publish_year, isbn (list)
     """
-    author = metadata.get("author_name", ["Unknown"])[0].replace(" ", ".")
+    author = metadata.get("author_name", ["Unknown"])[0].split(' ')[-1].replace(" ", ".")
     title = metadata.get("title", "Unknown").replace(" ", ".")
     year = str(metadata.get("first_publish_year", ""))
     isbn = metadata.get("isbn", [""])[0]

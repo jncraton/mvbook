@@ -12,4 +12,4 @@ def test_format_filename_minimal():
     }
     p = Path("dummy.epub")
     res = format_filename(meta, p)
-    assert res == "J.R.R.Tolkien.The.Two.Towers.1999.9780618002238.epub"
+    assert res == "Tolkien.The.Two.Towers.1999.9780618002238.epub"
